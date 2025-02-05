@@ -1,6 +1,7 @@
 ﻿@using Blazorise
 @using NetliveComponents.Mapper.Tailwind
 @using NetliveComponents.Models
+@using System.Linq.Expressions
 
 <Validation MessageLocalizer="@MessageLocalizer">
     <Field>
@@ -9,10 +10,8 @@
             <FieldLabel>@Label</FieldLabel>
         }
         <FieldBody>
-            <FileEdit 
-                Placeholder="@Placeholder"
-                      Changed="@OnChanged">
-                      
+            <FileEdit Placeholder="@Placeholder"
+                      Changed="@OnValueChanged">
                 <Feedback>
                     <ValidationError />
                 </Feedback>
@@ -35,29 +34,20 @@
     public EventCallback<string> CurrentValueChanged { get; set; }
 
     [Parameter]
-    public Func<string, bool> Validation { get; set; }
+    public Expression<Func<string>> CurrentValueExpression { get; set; }
 
     [Parameter]
-    public string ValidationErrorMessage { get; set; } = "null";
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        if (CurrentValueChanged.HasDelegate)
-        {
-            await CurrentValueChanged.InvokeAsync(CurrentValue);
-        }
-    }
+    public NetliveInputType InputType { get; set; } = NetliveInputType.Text;
 
     [CascadingParameter]
     public Func<string, IEnumerable<string>, string> MessageLocalizer { get; set; }
 
-
-
-    async Task OnChanged(FileChangedEventArgs e)
+    async Task OnValueChanged(FileChangedEventArgs e)
     {
-       
+
+
+
     }
+
+    private TextRole BlazoriseInputType => BlazoriseMapper.GetBlazoriseInputType(InputType);
 }
