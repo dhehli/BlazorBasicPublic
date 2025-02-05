@@ -1,0 +1,63 @@
+﻿@page "/Account/ConfirmEmail"
+
+@using System.Text
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
+@using BlazorBasic.Data
+
+@inject UserManager<ApplicationUser> UserManager
+@inject IdentityRedirectManager RedirectManager
+
+<PageTitle>Confirm email</PageTitle>
+
+
+<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    Confirm email
+</h1>
+
+@if (!string.IsNullOrEmpty(statusMessage))
+{
+    <div class="@(isSuccess ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300") border rounded-lg px-4 py-3 mt-4">
+        @statusMessage
+    </div>
+}
+
+
+@code {
+    private string? statusMessage;
+    private bool isSuccess;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromQuery]
+    private string? UserId { get; set; }
+
+    [SupplyParameterFromQuery]
+    private string? Code { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserId is null || Code is null)
+        {
+            RedirectManager.RedirectTo("");
+        }
+
+        var user = await UserManager.FindByIdAsync(UserId);
+        if (user is null)
+        {
+            HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+            statusMessage = $"Error loading user with ID {UserId}";
+            isSuccess = false;
+        }
+        else
+        {
+            var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Code));
+            var result = await UserManager.ConfirmEmailAsync(user, code);
+            isSuccess = result.Succeeded;
+            statusMessage = result.Succeeded
+                ? "Thank you for confirming your email."
+                : "Error confirming your email.";
+        }
+    }
+}

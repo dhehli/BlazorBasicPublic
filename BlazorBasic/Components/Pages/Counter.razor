@@ -1,0 +1,42 @@
+﻿@page "/counter"
+@using Microsoft.AspNetCore.Authorization
+
+@using System.Globalization
+@inject IStringLocalizer<Counter> Loc
+
+@rendermode InteractiveServer
+
+
+<PageTitle>Counter</PageTitle>
+
+<ul class="text-gray-700 dark:text-gray-300">
+    <li><b>CurrentCulture</b>: @CultureInfo.CurrentCulture</li>
+    <li><b>CurrentUICulture</b>: @CultureInfo.CurrentUICulture</li>
+</ul>
+
+<p class="text-gray-700 dark:text-gray-300">
+    @Loc["Counter"]
+</p>
+
+
+    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
+        Counter
+    </h1>
+
+    <p role="status" class="my-4 text-gray-700 dark:text-gray-300">
+        Current count: <span class="font-medium">@currentCount</span>
+    </p>
+
+    <button class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+            @onclick="IncrementCount">
+        Click me
+    </button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

@@ -1,0 +1,25 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@inherits LayoutComponentBase
+
+<Badge  Color="BlazoriseBadgeColor"
+        Pill="Pill">
+    @ChildContent
+</Badge>
+
+@code {
+    [Parameter]
+    public NetliveColor Color { get; set; } = "Default";
+
+    [Parameter]
+    public bool Pill { get; set; } = false;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null;
+
+    private Color BlazoriseBadgeColor => BlazoriseMapper.GetBlazoriseColor(Color);
+
+   
+}
+

@@ -1,0 +1,59 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@using System.Linq.Expressions
+
+<Validation MessageLocalizer="@MessageLocalizer">
+    <Field>
+        @if (!string.IsNullOrEmpty(Label))
+        {
+            <FieldLabel>@Label</FieldLabel>
+        }
+        <FieldBody>
+            <TextEdit Placeholder="@Placeholder"
+                      Role="@BlazoriseInputType"
+                      Text="@CurrentValue"
+                      TextChanged="@OnValueChanged"
+                      TextExpression="@CurrentValueExpression"
+                      autocomplete="new-password">
+                <Feedback>
+                    <ValidationError />
+                </Feedback>
+            </TextEdit>
+        </FieldBody>
+    </Field>
+</Validation>
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "";
+
+    [Parameter]
+    public string CurrentValue { get; set; }
+
+    [Parameter]
+    public EventCallback<string> CurrentValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<string>> CurrentValueExpression { get; set; }
+
+    [Parameter]
+    public NetliveInputType InputType { get; set; } = NetliveInputType.Text;
+
+    [CascadingParameter]
+    public Func<string, IEnumerable<string>, string> MessageLocalizer { get; set; }
+
+    private async Task OnValueChanged(string newValue)
+    {
+        CurrentValue = newValue;
+        if (CurrentValueChanged.HasDelegate)
+        {
+            await CurrentValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+    private TextRole BlazoriseInputType => BlazoriseMapper.GetBlazoriseInputType(InputType);
+}

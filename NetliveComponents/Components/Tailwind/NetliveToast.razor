@@ -1,0 +1,32 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+
+<ToastProvider @ref="toastProviderRef"
+Placement="@BlazoriseToastPlacement"
+Animated="@Animated"
+AnimationDuration="@AnimationDuration"
+Autohide="@Autohide"
+AutohideDelay="@AutohideDelay"/>
+
+@code {
+    [Inject] INetliveToastService ToastService { get; set; }
+
+    [Parameter] public NetliveToasterPlacement Placement { get; set; } = NetliveToasterPlacement.BottomEnd;
+    [Parameter] public bool Animated { get; set; } = true;
+    [Parameter] public int AnimationDuration { get; set; } = 300;
+    [Parameter] public bool Autohide { get; set; } = true;
+    [Parameter] public int AutohideDelay { get; set; } = 5000;
+
+    [Parameter] public Action<ToastInstanceOptions> CustomToastOptions { get; set; }
+
+    [Parameter] public NetliveToastIntent NetliveToastIntent { get; set; } = NetliveToastIntent.Success;
+
+    private ToastProvider toastProviderRef;    
+
+    public void Show(string title, string message, NetliveToastIntent netliveToastIntent)
+    {
+        toastProviderRef.Show(title, message, BlazoriseMapper.GetNetliveToastIntent(netliveToastIntent));
+    }
+    private ToasterPlacement BlazoriseToastPlacement => BlazoriseMapper.GetBlazoriseToasterPlacement(Placement);
+}

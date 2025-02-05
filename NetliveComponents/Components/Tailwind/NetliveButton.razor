@@ -1,0 +1,62 @@
+﻿@using Blazorise
+@using Blazorise.SpinKit
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@inherits LayoutComponentBase
+
+
+<Button Color="BlazoriseButtonColor"
+        Size="BlazoriseButtonSize"
+        Outline="Outline"
+        Loading="Loading"
+        Disabled="Disabled"
+        Clicked="@Clicked"
+        Type="BlazoriseButtonType"
+        Class="inline-flex gap-1"
+>   
+    <LoadingTemplate>
+        <Div Class="animate-spin">
+            <NetliveIcon Name="NetliveIconName.Spinner" />
+        </Div> 
+         @ChildContent
+    </LoadingTemplate>
+
+    <ChildContent>
+       @ChildContent
+    </ChildContent>
+</Button>
+
+
+@code {
+    [Parameter]
+    public NetliveColor Color { get; set; } = "Default";
+
+    [Parameter]
+    public NetliveSize Size { get; set; } = NetliveSize.Default;
+
+    [Parameter]
+    public NetliveButtonType Type { get; set; } = NetliveButtonType.Button;
+
+    [Parameter]
+    public bool Outline { get; set; } = false;
+
+    [Parameter]
+    public bool Loading { get; set; } = false;
+
+    [Parameter]
+    public bool Disabled { get; set; } = false;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback Clicked { get; set; }
+
+    private Color BlazoriseButtonColor => BlazoriseMapper.GetBlazoriseColor(Color);
+
+    private Size BlazoriseButtonSize => BlazoriseMapper.GetBlazoriseSize(Size);
+
+    private ButtonType BlazoriseButtonType => BlazoriseMapper.GetBlazoriseButtonType(Type);
+
+
+}

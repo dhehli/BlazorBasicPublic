@@ -1,0 +1,60 @@
+﻿@using Blazorise
+@using NetliveComponents.Models
+@inject NavigationManager NavigationManager
+
+<Card>
+    @if (CardHeader != null)
+    {
+        <CardHeader Class="flex justify-between">
+            <CardTitle Class="flex justify-between">@CardHeader</CardTitle>
+            @if (EditAction != null || DeleteAction != null || CustomActions != null)
+            {
+                <Dropdown Display="Display.InlineBlock" Color="Color.Primary">
+                    <DropdownToggle ToggleIconVisible="false">
+                        <NetliveIcon Name="NetliveIconName.DotsVertical" IconSize="NetliveIconSize.Large" Color="NetliveTextColor.White"></NetliveIcon>
+                    </DropdownToggle>
+                    <DropdownMenu Class="text-gray-700 dark:text-gray-200">
+                        @if (EditAction != null)
+                        {
+                            <DropdownItem Clicked="@(() => EditAction())">Edit</DropdownItem>
+                        }
+                        @if (DeleteAction != null)
+                        {
+                            <DropdownItem Clicked="@(() => DeleteAction())" >
+                            Delete
+                            </DropdownItem>
+                        }
+                        @if (CustomActions != null)
+                        {
+                            @CustomActions
+                        }
+                    </DropdownMenu>
+                </Dropdown>
+            }        
+        </CardHeader>
+    }
+    @if (CardBody != null)
+    {
+        <CardBody>@CardBody</CardBody>
+    }
+</Card>
+
+@code {
+    [Parameter]
+    public RenderFragment? CardHeader { get; set; }
+
+    [Parameter]
+    public RenderFragment? CardBody { get; set; }
+
+
+    [Parameter]
+    public Action? EditAction { get; set; }
+
+    [Parameter]
+    public Action? DeleteAction { get; set; }
+
+    [Parameter]
+    public RenderFragment? CustomActions { get; set; }
+
+   
+}

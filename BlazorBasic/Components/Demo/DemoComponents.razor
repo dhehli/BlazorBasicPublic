@@ -1,0 +1,377 @@
+﻿@page "/DemoComponents";
+
+@using Blazorise
+@using Blazorise.SpinKit
+@using NetliveComponents.Components.Tailwind
+@using NetliveComponents.Models;
+
+@rendermode InteractiveServer
+
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Typography
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Headings
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Das ist ein H1
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Das ist ein H2
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H3">
+	Das ist ein H3
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H4">
+	Das ist ein H4
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H5">
+	Das ist ein H5
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H6">
+	Das ist ein H6
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Text
+</NetliveHeading>
+
+<NetliveParagraph>Das ist ein Text</NetliveParagraph>
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Buttons
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Colors
+</NetliveHeading>
+
+<NetliveButton Color="NetliveColor.Primary">
+	<NetliveIcon Name="NetliveIconName.Hourglass" />	Primary
+</NetliveButton>
+
+<NetliveButton Color="NetliveColor.Secondary">Secondary</NetliveButton>
+<NetliveButton Color="NetliveColor.Success">Success</NetliveButton>
+<NetliveButton Color="NetliveColor.Danger">Danger</NetliveButton>
+<NetliveButton Color="NetliveColor.Warning">Warning</NetliveButton>
+<NetliveButton Color="NetliveColor.Info">Info</NetliveButton>
+<NetliveButton Color="NetliveColor.Light">Light</NetliveButton>
+<NetliveButton Color="NetliveColor.Dark">Dark</NetliveButton>
+<NetliveButton Color="NetliveColor.Link">Link</NetliveButton>
+<NetliveButton>Default</NetliveButton>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Outline
+</NetliveHeading>
+
+<NetliveButton Color="NetliveColor.Primary" Outline>Primary</NetliveButton>
+<NetliveButton Color="NetliveColor.Secondary" Outline>Secondary</NetliveButton>
+<NetliveButton Color="NetliveColor.Success" Outline>Success</NetliveButton>
+<NetliveButton Color="NetliveColor.Danger" Outline>Danger</NetliveButton>
+<NetliveButton Color="NetliveColor.Warning" Outline>Warning</NetliveButton>
+<NetliveButton Color="NetliveColor.Info" Outline>Info</NetliveButton>
+<NetliveButton Color="NetliveColor.Light" Outline>Light</NetliveButton>
+<NetliveButton Color="NetliveColor.Dark" Outline>Dark</NetliveButton>
+<NetliveButton Color="NetliveColor.Link" Outline>Link</NetliveButton>
+<NetliveButton>Default</NetliveButton>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Size
+</NetliveHeading>
+
+
+<NetliveButton Color="NetliveColor.Primary" Size="NetliveSize.ExtraSmall">Extra Small</NetliveButton>
+<NetliveButton Color="NetliveColor.Secondary" Size="NetliveSize.Small">Small</NetliveButton>
+<NetliveButton Color="NetliveColor.Success" Size="NetliveSize.Default">Default</NetliveButton>
+<NetliveButton Color="NetliveColor.Danger" Size="NetliveSize.Medium">Medium</NetliveButton>
+<NetliveButton Color="NetliveColor.Warning" Size="NetliveSize.Large">Large</NetliveButton>
+<NetliveButton Color="NetliveColor.Info" Size="NetliveSize.ExtraLarge">Extra Large</NetliveButton>
+
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Loading
+</NetliveHeading>
+
+
+<NetliveButton Color="NetliveColor.Primary" Loading>Primary</NetliveButton>
+<NetliveButton Color="NetliveColor.Secondary" Loading>Secondary</NetliveButton>
+<NetliveButton Color="NetliveColor.Success" Loading>Success</NetliveButton>
+<NetliveButton Color="NetliveColor.Danger" Loading>Danger</NetliveButton>
+<NetliveButton Color="NetliveColor.Warning" Loading>Warning</NetliveButton>
+<NetliveButton Color="NetliveColor.Info" Loading>Info</NetliveButton>
+<NetliveButton Color="NetliveColor.Light" Loading>Light</NetliveButton>
+<NetliveButton Color="NetliveColor.Dark" Loading>Dark</NetliveButton>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Disabled
+</NetliveHeading>
+
+<NetliveButton Color="NetliveColor.Primary" Disabled>Primary</NetliveButton>
+<NetliveButton Color="NetliveColor.Secondary" Disabled>Secondary</NetliveButton>
+<NetliveButton Color="NetliveColor.Success" Disabled>Success</NetliveButton>
+<NetliveButton Color="NetliveColor.Danger" Disabled>Danger</NetliveButton>
+<NetliveButton Color="NetliveColor.Warning" Disabled>Warning</NetliveButton>
+<NetliveButton Color="NetliveColor.Info" Disabled>Info</NetliveButton>
+<NetliveButton Color="NetliveColor.Light" Disabled>Light</NetliveButton>
+<NetliveButton Color="NetliveColor.Dark" Disabled>Dark</NetliveButton>
+<NetliveButton Color="NetliveColor.Link" Disabled>Link</NetliveButton>
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Badges
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Colors
+</NetliveHeading>
+
+<NetliveBadge Color="NetliveColor.Primary">Primary</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Secondary">Secondary</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Success">Success</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Danger">Danger</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Warning">Warning</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Info">Info</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Light">Light</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Dark">Dark</NetliveBadge>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Pill
+</NetliveHeading>
+
+<NetliveBadge Color="NetliveColor.Primary" Pill>Primary</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Secondary" Pill>Secondary</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Success" Pill>Success</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Danger" Pill>Danger</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Warning" Pill>Warning</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Info" Pill>Info</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Light" Pill>Light</NetliveBadge>
+<NetliveBadge Color="NetliveColor.Dark" Pill>Dark</NetliveBadge>
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Alert
+</NetliveHeading>
+
+<NetliveHeading Size="NetliveHeadingSize.H2">
+	Colors
+</NetliveHeading>
+
+<NetliveAlert Color="NetliveColor.Primary">
+	<AlertMessage>Primary message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveAlert Color="NetliveColor.Secondary">
+	<AlertMessage>Secondary message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveAlert Color="NetliveColor.Success">
+	<AlertMessage>Success message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveAlert Color="NetliveColor.Danger">
+	<AlertMessage>Danger message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveAlert Color="NetliveColor.Warning">
+	<AlertMessage>Warning message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveAlert Color="NetliveColor.Info">
+	<AlertMessage>Info message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveAlert Color="NetliveColor.Light">
+	<AlertMessage>Light message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveAlert Color="NetliveColor.Dark">
+	<AlertMessage>Dark message!</AlertMessage>
+	<AlertDescription>You successfully read this important alert message.</AlertDescription>
+</NetliveAlert>
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Breadcrumb
+</NetliveHeading>
+
+<NetliveBreadCrumb BreadcrumbItems="BreadcrumbData" />
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Modal
+</NetliveHeading>
+
+
+<NetliveButton Color="NetliveColor.Primary" Clicked="@(()=>ShowModal())">
+	Standard Modal
+</NetliveButton>
+
+<NetliveModal @ref="modalRef" 
+Size="NetliveModalSize.Default"
+Title="Hallo Modal"
+
+>
+	<BodyContent>
+		<NetliveParagraph>Are you sure you want to proceed with this action?</NetliveParagraph>
+	</BodyContent>
+
+</NetliveModal>
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Toast
+</NetliveHeading>
+
+<NetliveToast @ref="toastComponent" />
+
+<NetliveButton Color="NetliveColor.Primary" Clicked="ShowToastMessage">
+	Show Toast
+</NetliveButton>
+
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+	Icons
+</NetliveHeading>
+
+
+<NetliveIcon 
+Name="NetliveIconName.Add" 
+IconSize="NetliveIconSize.Default" 
+Color="NetliveTextColor.White" 
+/>
+
+<NetliveIcon Name="NetliveIconName.DotsVertical" Color="NetliveTextColor.White" IconSize="NetliveIconSize.Default" />
+
+<Bar Mode="BarMode.VerticalInline"
+	 CollapseMode="BarCollapseMode.Small"
+	 Breakpoint="Breakpoint.Desktop"
+	 NavigationBreakpoint="Breakpoint.Tablet"
+	 ThemeContrast="ThemeContrast.Dark">
+	<BarBrand>
+		<BarItem>
+			<BarLink To="#home">
+				<img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+				<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
+			</BarLink>
+		</BarItem>
+	</BarBrand>
+	<BarMenu>
+		<BarStart>
+			<!-- Home Link -->
+			<BarItem>
+				<BarLink To="#home">
+					<BarIcon IconName="IconName.Dashboard" />
+					Home
+				</BarLink>
+			</BarItem>
+
+			<!-- Documentation -->
+			<BarItem>
+				<BarLink To="#docs">Documentation</BarLink>
+			</BarItem>
+
+			<!-- Dropdown with Nested Items -->
+			<BarItem>
+				<BarDropdown>
+					<BarDropdownToggle>
+						<BarIcon IconName="IconName.Edit" />
+						Dropdown
+					</BarDropdownToggle>
+					<BarDropdownMenu>
+						<!-- Simple Dropdown Items -->
+						<BarDropdownItem>Action</BarDropdownItem>
+						<BarDropdownItem>Another action</BarDropdownItem>
+
+						
+					</BarDropdownMenu>
+				</BarDropdown>
+			</BarItem>
+		</BarStart>
+	</BarMenu>
+</Bar>
+
+<ToastProvider />
+
+<Button Color="Color.Primary" Clicked="@ShowToast">Show toast message!</Button>
+
+
+@code {
+	private NetliveModal modalRef;
+	private bool centered = false;
+	private ModalSize modalSize = ModalSize.Default;
+	[Inject] IToastService ToastService { get; set; }
+
+
+	private NetliveToast toastRef;
+
+	private string iconName = "dots-vertical";
+
+	private NetliveToast toastComponent;
+
+	private void ShowToastMessage()
+	{
+		toastComponent.Show(
+			"This is a message from the parent component",
+			"Toast Title",
+			NetliveToastIntent.Success
+		);
+	}
+
+
+	private void BuildToastInstanceOptions(ToastInstanceOptions toastInstanceOptions)
+	{
+		toastInstanceOptions.Animated = true;
+		toastInstanceOptions.AnimationDuration = 300;
+		toastInstanceOptions.Autohide = true;
+		toastInstanceOptions.AutohideDelay = 3000;
+		toastInstanceOptions.Closing = (e) => { Console.WriteLine("Closing"); return Task.CompletedTask; };
+		toastInstanceOptions.Opening = (e) => { Console.WriteLine("Opening"); return Task.CompletedTask; };
+	}
+
+	Task ShowToast()
+	{
+		return ToastService.Success("This is a simple toast message!", "Hello", BuildToastInstanceOptions);
+	}
+
+
+	private async Task ShowModal()
+	{
+		await modalRef.Show();
+	}
+
+	private async Task HideModal()
+	{
+		await modalRef.Hide();
+	}
+
+	private async Task HandleSave()
+	{
+		Console.WriteLine("Save confirmed");
+		await modalRef.Hide();
+
+	}
+
+	private async Task HandleCancel()
+	{
+		Console.WriteLine("Cancel clicked");
+		await modalRef.Hide();
+
+	}
+
+	private List<NetliveBreadcrumbItem> BreadcrumbData => new()
+	{
+		new NetliveBreadcrumbItem { Text = "Home", Link = "#" },
+		new NetliveBreadcrumbItem { Text = "Library", Link = "#" },
+		new NetliveBreadcrumbItem { Text = "Data", Link = "#", IsActive = true }
+	};
+}

@@ -1,0 +1,56 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@using System.Linq.Expressions
+
+<Validation MessageLocalizer="@MessageLocalizer">
+    <Field>
+        @if (!string.IsNullOrEmpty(Label))
+        {
+            <FieldLabel>@Label</FieldLabel>
+        }
+        <FieldBody>
+            <MemoEdit Rows="5" 
+                Placeholder="@Placeholder" 
+                Text="@CurrentValue"
+                TextChanged="@OnValueChanged"
+                TextExpression="@CurrentValueExpression">
+
+                <Feedback>
+                    <ValidationError />
+                </Feedback>  
+            </MemoEdit>     
+        </FieldBody>
+    </Field>
+</Validation>
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "";
+
+    [Parameter]
+    public string CurrentValue { get; set; }
+
+    [Parameter]
+    public EventCallback<string> CurrentValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<string>> CurrentValueExpression { get; set; }
+
+    [CascadingParameter]
+    public Func<string, IEnumerable<string>, string> MessageLocalizer { get; set; }
+
+
+    private async Task OnValueChanged(string newValue)
+    {
+        CurrentValue = newValue;
+
+        if (CurrentValueChanged.HasDelegate)
+        {
+            await CurrentValueChanged.InvokeAsync(newValue);
+        }
+    }
+}

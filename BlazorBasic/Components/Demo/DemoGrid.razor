@@ -1,0 +1,60 @@
+﻿@page "/demogrid"
+
+@using BlazorBasic.Data.Services
+@using Blazorise
+@using Blazorise.DataGrid
+@using BlazorBasic.Data
+
+@inject IProductService ProductService
+@rendermode InteractiveServer
+
+<DataGrid TItem="Product"
+          Data="@Products"
+          Responsive
+          ShowPager
+          ShowPageSizes
+          Sortable
+          Filterable
+          FilterMethod="DataGridFilterMethod.StartsWith">
+
+    <DataGridColumns>
+        <DataGridColumn Field="@nameof(Product.Id)" Sortable >
+            <CaptionTemplate>
+                <Span Class="mr-2">#</Span>
+            </CaptionTemplate>
+         </DataGridColumn>
+        <DataGridColumn Field="@nameof(Product.Name)" Sortable>
+            <CaptionTemplate>
+                <Span Class="mr-2">Name</Span>
+            </CaptionTemplate>
+        </DataGridColumn>
+        <DataGridColumn Field="@nameof(Product.Price)"  Sortable DisplayFormat="{0:C}">
+            <CaptionTemplate>
+                <Span Class="mr-2">Price</Span>
+            </CaptionTemplate>
+            <EditTemplate>
+                <NumericEdit TValue="decimal" Value="@((decimal)context.CellValue)" ValueChanged="@( v => context.CellValue = v)" />
+            </EditTemplate>
+        </DataGridColumn>
+        <DataGridColumn Field="@nameof(Product.Store.Name)" Sortable>
+            <CaptionTemplate>
+                <Span Class="mr-2">Store</Span>
+            </CaptionTemplate>
+        </DataGridColumn>
+    </DataGridColumns>
+
+    <ButtonRowTemplate>
+        Buttons
+    </ButtonRowTemplate>
+   
+</DataGrid>
+
+@code {
+
+    private List<Product> Products = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Products = await ProductService.GetProductsAsync();
+    }
+}

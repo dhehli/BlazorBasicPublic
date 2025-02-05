@@ -1,0 +1,119 @@
+﻿@page "/demoformfields"
+@using Blazorise
+@using System.ComponentModel.DataAnnotations
+@using Blazorise.Localization
+@using NetliveComponents.Components.Tailwind
+@using NetliveComponents.Components.Tailwind.Form
+@using NetliveComponents.Models
+
+@inject IMessageLocalizerHelper<DemoFormFields> MessageLocalizer;
+@inject IStringLocalizer<DemoFormFields> L;
+
+@rendermode InteractiveServer
+
+<NetliveHeading>
+    @L["Title"]
+</NetliveHeading>
+
+<Validations Model="@formModel" HandlerType="ValidationHandlerType.DataAnnotation" @ref="@validations" ValidateOnLoad="false">
+    <CascadingValue Value="MessageLocalizer.Localize">
+        <AntiforgeryToken />
+        <Blazorise.ValidationSummary />
+
+        <NetliveField Label="@L["NameLabel"]"
+                      Placeholder="@L["NamePlaceholder"]"
+                      @bind-CurrentValue="formModel.FirstName" />
+
+        <NetliveField Label="@L["PasswordLabel"]"
+                      InputType="NetliveInputType.Password"
+                      Placeholder="@L["PasswordPlaceholder"]"
+                      @bind-CurrentValue="formModel.Password" />
+
+
+        <NetliveRadio Label="@L["CountryRadioLabel"]"
+                      Items="@Countries"
+                      Placeholder="@L["CountrySelectPlaceholder"]"
+                      @bind-CurrentValue="formModel.CountryRadioId" />
+
+        <NetliveRadio Label="@L["CountryRadioLabel"]"
+                      Items="@Countries"
+                      Placeholder="@L["CountrySelectPlaceholder"]"
+                      @bind-CurrentValue="formModel.CountryButtonId"
+                      Buttons="true" />
+
+        <NetliveAutoComplete TItem="Country"
+                             Label="@L["AutoCompleteLabel"]"
+                             Placeholder="@L["AutoCompletePlaceholder"]"
+                             @bind-CurrentValue="formModel.CountryAutoCompletedIds"
+                             Items="@Countries" />
+
+        <NetliveButton Clicked="@OnSaveClicked" Color="NetliveColor.Primary">
+            @L["SubmitButton"]
+        </NetliveButton>
+
+    </CascadingValue>
+</Validations>
+
+<NetliveParagraph>
+
+    <div>Country Radio: @formModel.CountryRadioId</div>
+
+    <div>Country Button: @formModel.CountryButtonId</div>
+
+    <div>CountryAutoCompletedIds: @string.Join(", ", formModel.CountryAutoCompletedIds)</div>
+
+
+</NetliveParagraph>
+
+
+@code {
+    private Validations validations = new();
+    private FormModelValidate formModel = new FormModelValidate();
+
+    async Task OnSaveClicked()
+    {
+        if (await validations.ValidateAll())
+        {
+            // validation passed
+        }
+        else
+        {
+            // validation failed
+        }
+    }
+    public class FormModelValidate
+    {
+        [Required]
+        [StringLength(50, ErrorMessage = "Full Name must be less than 50 characters.")]
+        public string FirstName { get; set; } = "";
+
+        [Required]
+        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a country radio")]
+        public int? CountryRadioId { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a country button")]
+        public int? CountryButtonId { get; set; }
+
+        [Required]
+        [MinLength(1, ErrorMessage = "Please select at least one country.")]
+        public List<int> CountryAutoCompletedIds { get; set; } = new();
+    }
+
+    private ICollection<Country> Countries = new List<Country>
+    {
+        new Country { Id = 1, Name = "USA" },
+        new Country { Id = 2, Name = "Canada" }
+    };
+
+    public class Country : ISelectableItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+}

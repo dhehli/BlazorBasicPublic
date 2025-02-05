@@ -1,0 +1,13 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@inherits LayoutComponentBase;
+
+
+<Paragraph class="text-gray-700 dark:text-gray-300" Margin="Margin.Is2.OnY">
+    @ChildContent
+</Paragraph>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; } 
+}

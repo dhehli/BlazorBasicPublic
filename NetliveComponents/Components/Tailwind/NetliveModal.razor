@@ -1,0 +1,74 @@
+﻿@using Blazorise
+@using Blazorise.Icons.FontAwesome;
+@using Microsoft.AspNetCore.Components.Web
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+
+<Modal @ref="ModalRef" Animated="@Animated" AnimationDuration="@AnimationDuration">
+    <ModalContent Size="@BlazoriseModalSize" Centered="@Centered">
+        <ModalHeader>
+            <ModalTitle>
+                @if (!string.IsNullOrEmpty(TitleIcon))
+                {
+                    
+                }
+                @Title
+            </ModalTitle>
+            <CloseButton Clicked="@Hide" />
+        </ModalHeader>
+        <ModalBody MaxHeight="@BodyMaxHeight">
+            @BodyContent
+        </ModalBody>
+        <ModalFooter>
+            @if (FooterTemplate != null)
+            {
+                @FooterTemplate
+            }
+            else
+            {
+                <Button Color="Color.Secondary" Clicked="OnSave">@CancelButtonText</Button>
+                <Button Color="Color.Primary" Clicked="OnCancel">@SaveButtonText</Button>
+            }
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    // Modal reference
+    private Modal ModalRef;
+
+    // Parameters for customization
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string TitleIcon { get; set; }
+    [Parameter] public string SaveButtonText { get; set; } = "Save";
+    [Parameter] public string CancelButtonText { get; set; } = "Cancel";
+    [Parameter] public RenderFragment BodyContent { get; set; }
+    [Parameter] public RenderFragment? FooterTemplate { get; set; }
+
+    // Modal settings
+    [Parameter] public NetliveModalSize Size { get; set; } = NetliveModalSize.Default;
+    [Parameter] public bool Centered { get; set; } = true;
+    [Parameter] public bool Animated { get; set; } = true;
+    [Parameter] public int AnimationDuration { get; set; } = 300;
+    [Parameter] public int? BodyMaxHeight { get; set; }
+
+    // Event callbacks
+    [Parameter] public EventCallback OnSave { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private ModalSize BlazoriseModalSize => BlazoriseMapper.GetBlazoriseModalSize(Size);
+
+    // Methods to show and hide the modal
+    public async Task Show()
+    {
+        await ModalRef.Show();
+    }
+
+    public async Task Hide()
+    {
+        await ModalRef.Hide();
+
+        // Trigger the OnCancel callback if the modal was explicitly closed
+        await OnCancel.InvokeAsync();
+    }
+}

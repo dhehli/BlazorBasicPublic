@@ -1,0 +1,18 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+
+
+<Heading Size="HeadingSize" Margin="Margin.Is5.OnY">
+    @ChildContent
+</Heading>
+
+@code {
+    [Parameter] 
+    public NetliveHeadingSize Size { get; set; }
+
+    [Parameter] 
+    public RenderFragment ChildContent { get; set; }
+
+    public HeadingSize HeadingSize => BlazoriseMapper.GetBlazoriseHeadingSize(Size);
+}

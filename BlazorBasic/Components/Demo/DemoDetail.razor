@@ -1,0 +1,46 @@
+﻿@page "/demodetail"
+
+@using Blazorise
+@using NetliveComponents.Components.Tailwind
+@using NetliveComponents.Components.Tailwind.Form
+@using NetliveComponents.Models
+@using System.ComponentModel.DataAnnotations
+
+@inject IStringLocalizer<DemoForm> L
+
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+
+<NetliveHeading Size="NetliveHeadingSize.H1">
+    <Icon Name="IconName.Hourglass" /> @L["Title"]
+</NetliveHeading>
+
+<NetliveCard EditAction="@NavigateToEdit"
+             DeleteAction="@NavigateToDelete">
+    <CardHeader >
+        header
+    </CardHeader>
+    <CardBody>
+        <CardTitle>Card title</CardTitle>
+        <CardText>
+            Some quick example text to build on the card title and make up the bulk of the card's content.
+        </CardText>
+    </CardBody>
+</NetliveCard>
+
+
+@code {
+
+    private void NavigateToEdit()
+    {
+        NavigationManager.NavigateTo("/edit");
+    }
+
+    private void NavigateToDelete()
+    {
+        NavigationManager.NavigateTo("/delete");
+    }
+
+   
+}

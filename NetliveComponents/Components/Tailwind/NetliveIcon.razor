@@ -1,0 +1,24 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@inherits LayoutComponentBase
+
+
+<Icon TextColor="@BlazorsiseTextColor" IconSize="@BlazoriseIconSize" Name="@BlazorsiseIconName" />
+
+@code {
+    [Parameter]
+    public NetliveIconSize IconSize { get; set; } = NetliveIconSize.Default;
+
+    [Parameter]
+    public NetliveTextColor Color { get; set; } = NetliveTextColor.Default;
+
+    [Parameter]
+    public object Name { get; set; } 
+
+
+    public IconSize BlazoriseIconSize => BlazoriseMapper.GetBlazoriseIconSize(IconSize);
+    public TextColor BlazorsiseTextColor => BlazoriseMapper.GetBlazoriseTextColor(Color);
+    public object BlazorsiseIconName => BlazoriseMapper.GetBlazoriseIconName(Name);
+
+}

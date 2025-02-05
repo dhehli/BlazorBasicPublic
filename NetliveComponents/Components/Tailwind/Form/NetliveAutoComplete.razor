@@ -1,0 +1,77 @@
+﻿@using Blazorise
+@using Blazorise.Components
+@using NetliveComponents.Models
+@using System.Linq.Expressions
+
+@typeparam TItem where TItem : ISelectableItem
+
+<Validation MessageLocalizer="@MessageLocalizer">
+    <Field>
+        @if (!string.IsNullOrEmpty(Label))
+        {
+            <FieldLabel>@Label</FieldLabel>
+        }
+        <FieldBody>
+            <ChildContent>
+                <Autocomplete TItem="TItem"
+                              TValue="int"
+                              Data="@Items"
+                              TextField="@((item) => item.Name)"
+                              ValueField="@((item) => item.Id)"
+                              Placeholder="Search..."
+                              SelectionMode="AutocompleteSelectionMode.Multiple"
+                              FreeTyping="@FreeTyping"
+                              SelectedValues="@CurrentValue"
+                              SelectedValuesChanged="@OnSelectedValuesChanged"
+                              SelectedTexts="@multipleSelectionTexts"
+                              SelectedTextsChanged="@OnSelectedTextsChanged">
+                </Autocomplete>
+            </ChildContent>
+        </FieldBody>
+    </Field>
+</Validation>
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "";
+
+    [Parameter]
+    public bool FreeTyping { get; set; } = false;
+
+    [Parameter]
+    public int MinLength { get; set; } = 1;
+
+    [Parameter]
+    public bool CloseOnSelection { get; set; } = true;
+
+    [Parameter]
+    public ICollection<TItem> Items { get; set; }
+
+    [Parameter]
+    public List<int> CurrentValue { get; set; } = new List<int>();
+
+    [Parameter]
+    public EventCallback<List<int>> CurrentValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<List<int>>> CurrentValueExpression { get; set; }
+
+    List<string> multipleSelectionTexts = new();
+
+    private async Task OnSelectedValuesChanged(IEnumerable<int> selectedValues)
+    {
+        CurrentValue = selectedValues.ToList();
+        await CurrentValueChanged.InvokeAsync(CurrentValue);
+    }
+
+    private async Task OnSelectedTextsChanged(List<string> selectedTexts)
+    {
+        multipleSelectionTexts = selectedTexts;
+    }
+
+    [CascadingParameter]
+    public Func<string, IEnumerable<string>, string> MessageLocalizer { get; set; }
+}

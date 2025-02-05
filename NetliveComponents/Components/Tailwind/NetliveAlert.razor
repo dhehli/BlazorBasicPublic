@@ -1,0 +1,36 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@inherits LayoutComponentBase
+
+
+<Alert Color="BlazoriseAlertColor"
+    Class="flex gap-1"
+       Visible="Visible">
+    @if (AlertMessage != null)
+    {
+        <AlertMessage>@AlertMessage </AlertMessage>
+    }
+    @if (AlertDescription != null)
+    {
+        <AlertDescription>@AlertDescription</AlertDescription>
+    }
+</Alert>
+
+@code {
+    [Parameter]
+    public NetliveColor Color { get; set; } = "Default";
+
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    // Optional RenderFragment for the alert message
+    [Parameter]
+    public RenderFragment? AlertMessage { get; set; }
+
+    // Optional RenderFragment for the alert description
+    [Parameter]
+    public RenderFragment? AlertDescription { get; set; }
+
+    private Color BlazoriseAlertColor => BlazoriseMapper.GetBlazoriseColor(Color);
+}

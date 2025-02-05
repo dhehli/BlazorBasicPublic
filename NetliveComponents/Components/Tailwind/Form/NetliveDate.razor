@@ -1,0 +1,63 @@
+﻿@using System.Linq.Expressions
+@using Blazorise
+
+<Div Class="relative">
+    <Validation MessageLocalizer="@MessageLocalizer">
+        <Field>
+            @if (!string.IsNullOrEmpty(Label))
+            {
+                <FieldLabel>@Label</FieldLabel>
+            }
+            <FieldBody>
+                <DatePicker
+                    TValue="DateTime?"
+                    Placeholder="@Placeholder"
+                    DateChanged="@OnValueChanged"
+                    DateExpression="@CurrentValueExpression"
+                            InputFormat="@InputFormat"
+                            DisplayFormat="@DisplayFormat"
+                    autocomplete="new-password">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </DatePicker>
+            </FieldBody>
+        </Field>
+    </Validation>
+</Div>
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "";
+
+    [Parameter]
+    public DateTime? CurrentValue { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime?> CurrentValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<DateTime?>> CurrentValueExpression { get; set; }
+
+    private async Task OnValueChanged(DateTime? newValue)
+    {
+        CurrentValue = newValue;
+        if (CurrentValueChanged.HasDelegate)
+        {
+            await CurrentValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+    [Parameter]
+    public string InputFormat { get; set; } = "dd.MM.yyyy";
+
+    [Parameter]
+    public string DisplayFormat { get; set; } = "dd.MM.yyyy";
+
+
+    [CascadingParameter]
+    public Func<string, IEnumerable<string>, string> MessageLocalizer { get; set; }
+}

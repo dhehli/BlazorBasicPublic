@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBasic", "BlazorBasic\BlazorBasic.csproj", "{9DC0664F-2F68-4350-8E10-D2F9A4D1898F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetliveComponents", "NetliveComponents\NetliveComponents.csproj", "{20928EA3-6408-4AF7-9AB7-D4581974DA58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DC0664F-2F68-4350-8E10-D2F9A4D1898F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC0664F-2F68-4350-8E10-D2F9A4D1898F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC0664F-2F68-4350-8E10-D2F9A4D1898F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC0664F-2F68-4350-8E10-D2F9A4D1898F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20928EA3-6408-4AF7-9AB7-D4581974DA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20928EA3-6408-4AF7-9AB7-D4581974DA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20928EA3-6408-4AF7-9AB7-D4581974DA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20928EA3-6408-4AF7-9AB7-D4581974DA58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5749E0D5-3835-4796-AEF1-D7F38433B017}
+	EndGlobalSection
+EndGlobal

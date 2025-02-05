@@ -1,0 +1,53 @@
+﻿@using Blazorise
+@using System.Linq.Expressions
+
+<Validation MessageLocalizer="@MessageLocalizer">
+    <Field>
+         <FieldBody>
+            <Check TValue="bool"
+                   Checked="@CurrentValue"
+                   CheckedChanged="@OnValueChanged"
+                   CheckedExpression="@CurrentValueExpression">
+                <ChildContent>@Label</ChildContent>
+
+                <Feedback>
+                    <ValidationError />
+                </Feedback>
+
+            </Check>
+            
+         </FieldBody>
+       
+    </Field>
+</Validation>
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "";
+
+    [Parameter]
+    public bool CurrentValue { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> CurrentValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<bool>> CurrentValueExpression { get; set; }
+
+    private async Task OnValueChanged(bool newValue)
+    {
+        CurrentValue = newValue;
+
+        if (CurrentValueChanged.HasDelegate)
+        {
+            await CurrentValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+
+    [CascadingParameter]
+    public Func<string, IEnumerable<string>, string> MessageLocalizer { get; set; }
+}

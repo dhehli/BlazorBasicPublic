@@ -1,0 +1,113 @@
+﻿@using System.Globalization
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+
+@rendermode InteractiveServer
+
+<div class="ml-3">
+    <button type="button" 
+            @onclick="ToggleDropdown" 
+            class="inline-flex cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
+        @RenderFlagSvg(selectedCulture?.Name, true)
+        @(selectedCulture?.DisplayName ?? "Select Language")
+    </button>
+
+    @if (isDropdownOpen)
+    {
+        <div class="absolute z-50 my-4 list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:bg-gray-700">
+            <ul class="py-2 font-medium" role="none">
+                @foreach (var culture in supportedCultures)
+                {
+                    <li>
+                        <button 
+                            @onclick="() => ApplySelectedCultureAsync(culture)" 
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <div class="inline-flex items-center">
+                                @RenderFlagSvg(culture.Name, false)
+                                @culture.DisplayName
+                            </div>
+                        </button>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+@code {
+    private CultureInfo[] supportedCultures = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("de-CH"),
+    };
+    private CultureInfo? selectedCulture;
+    private bool isDropdownOpen = false;
+
+    protected override void OnInitialized()
+    {
+        selectedCulture = CultureInfo.CurrentCulture;
+    }
+
+    private RenderFragment RenderFlagSvg(string? cultureName, bool isLarge) => builder =>
+    {
+        var svgClass = isLarge ? "w-5 h-5 rounded-full me-3" : "h-3.5 w-3.5 rounded-full me-2";
+
+        builder.OpenElement(0, "svg");
+        builder.AddAttribute(1, "class", svgClass);
+        builder.AddAttribute(2, "aria-hidden", "true");
+        builder.AddAttribute(3, "xmlns", "http://www.w3.org/2000/svg");
+        builder.AddAttribute(4, "viewBox", "0 0 512 512");
+
+        switch (cultureName)
+        {
+            case "en-US":
+                // US Flag
+                builder.AddMarkupContent(5, @"
+                    <path fill=""#bd3d44"" d=""M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"" transform=""scale(3.9385)"" />
+                    <path fill=""#fff"" d=""M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"" transform=""scale(3.9385)"" />
+                    <path fill=""#192f5d"" d=""M0 0h98.8v70H0z"" transform=""scale(3.9385)"" />
+                ");
+                break;
+            case "de-CH":
+                // German Flag
+                builder.AddMarkupContent(5, @"
+                    <path fill=""#ffce00"" d=""M0 341.3h512V512H0z"" />
+                    <path d=""M0 0h512v170.7H0z"" />
+                    <path fill=""#d00"" d=""M0 170.7h512v170.6H0z"" />
+                ");
+                break;
+            default:
+                // Default/Fallback Flag
+                builder.AddMarkupContent(5, @"
+                    <circle cx=""256"" cy=""256"" r=""256"" fill=""#f0f0f0"" />
+                    <path d=""M256 0C114.616 0 0 114.616 0 256s114.616 256 256 256 256-114.616 256-256S397.384 0 256 0z"" fill=""#0052b4"" />
+                ");
+                break;
+        }
+
+        builder.CloseElement();
+    };
+
+    private void ToggleDropdown()
+    {
+        isDropdownOpen = !isDropdownOpen;
+    }
+
+    private async Task ApplySelectedCultureAsync(CultureInfo culture)
+    {
+        selectedCulture = culture;
+        isDropdownOpen = false;
+
+        if (CultureInfo.CurrentCulture != selectedCulture)
+        {
+            var uri = new Uri(Navigation.Uri)
+                .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            var cultureEscaped = Uri.EscapeDataString(selectedCulture.Name);
+            var uriEscaped = Uri.EscapeDataString(uri);
+            Navigation.NavigateTo(
+                $"Culture/Set?culture={cultureEscaped}&redirectUri={uriEscaped}",
+                forceLoad: true);
+        }
+    }
+}

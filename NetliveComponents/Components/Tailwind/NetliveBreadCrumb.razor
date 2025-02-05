@@ -1,0 +1,17 @@
+﻿@using System.Collections.Generic
+@using Blazorise
+@using NetliveComponents.Models
+
+<Breadcrumb>
+    @foreach (var item in BreadcrumbItems)
+    {
+        <BreadcrumbItem Active="@item.IsActive">            
+            <BreadcrumbLink To="@item.Link">@item.Text</BreadcrumbLink>            
+        </BreadcrumbItem>
+    }
+</Breadcrumb>
+
+@code {
+    [Parameter]
+    public List<NetliveBreadcrumbItem> BreadcrumbItems { get; set; } = new();
+}

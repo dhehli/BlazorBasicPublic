@@ -1,0 +1,22 @@
+﻿@page "/products"
+@using BlazorBasic.Data.Services
+@using Microsoft.EntityFrameworkCore
+@using BlazorBasic.Data
+@inject IProductService ProductService
+
+<DxDataGrid Data="@Products" ShowBorders="true">
+    <DxDataGridColumn Field="@nameof(Product.Id)" Caption="ID" />
+    <DxDataGridColumn Field="@nameof(Product.Name)" Caption="Name" />
+    <DxDataGridColumn Field="@nameof(Product.Price)" Caption="Price" />
+    <DxDataGridColumn Field="@nameof(Product.Description)" Caption="Description" />
+</DxDataGrid>
+
+@code {
+
+    private List<Product> Products = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Products = await ProductService.GetProductsAsync();
+    }
+}

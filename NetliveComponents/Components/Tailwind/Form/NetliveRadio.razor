@@ -1,0 +1,76 @@
+﻿@using Blazorise
+@using NetliveComponents.Mapper.Tailwind
+@using NetliveComponents.Models
+@using System.Linq.Expressions
+
+@typeparam TItem where TItem : ISelectableItem
+
+<Validation MessageLocalizer="@MessageLocalizer">
+    <Field>
+        @if (!string.IsNullOrEmpty(Label))
+        {
+            <FieldLabel>@Label</FieldLabel>
+        }
+        <FieldBody>
+            <RadioGroup TValue="int?"
+            Placeholder="@Placeholder"
+            CheckedValue="@CurrentValue"
+            CheckedValueChanged="@OnValueChanged"
+            CheckedValueExpression="@CurrentValueExpression"
+            Buttons="@Buttons">
+
+                <ChildContent>
+                    @if (Items != null)
+                    {
+                        foreach (var item in Items)
+                        {
+                            <Radio @key="@item.Id" TValue="int?" Value="@item.Id">@item.Name</Radio>
+                        }
+                    }
+                </ChildContent>
+                <Feedback>
+                    <ValidationError />
+                </Feedback>
+            </RadioGroup>
+        </FieldBody>
+    </Field>
+</Validation>
+
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = "";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "";
+
+    [Parameter]
+    public int? CurrentValue { get; set; }
+
+    [Parameter]
+    public ICollection<TItem> Items { get; set; }
+
+    [Parameter]
+    public bool Buttons { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<int?> CurrentValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<int?>> CurrentValueExpression { get; set; }
+
+    private async Task OnValueChanged(int? newValue)
+    {
+
+        CurrentValue = newValue;
+
+        if (CurrentValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+            await CurrentValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+    [CascadingParameter]
+    public Func<string, IEnumerable<string>, string> MessageLocalizer { get; set; }
+}
