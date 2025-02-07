@@ -21,57 +21,66 @@
 
     <CascadingValue Value="MessageLocalizer.Localize">
 
-    <NetliveField Label="@L["NameLabel"]"
-                  Placeholder="@L["NamePlaceholder"]"
-                  @bind-CurrentValue="formModel.FirstName" />
+        <NetliveField Label="@L["NameLabel"]"
+                      Placeholder="@L["NamePlaceholder"]"
+                      @bind-CurrentValue="formModel.FirstName" />
 
-    <NetliveField Label="@L["PasswordLabel"]"
-                  InputType="NetliveInputType.Password"
-                  Placeholder="@L["PasswordPlaceholder"]"
-                  @bind-CurrentValue="formModel.Password" />
+        <NetliveField Label="@L["PasswordLabel"]"
+                      InputType="NetliveInputType.Password"
+                      Placeholder="@L["PasswordPlaceholder"]"
+                      @bind-CurrentValue="formModel.Password" />
 
-    <NetliveField Label="@L["EmailLabel"]"
-                  InputType="NetliveInputType.Email"
-                  Placeholder="@L["EmailPlaceholder"]"
-                  @bind-CurrentValue="formModel.Email" />
+        <NetliveField Label="@L["EmailLabel"]"
+                      InputType="NetliveInputType.Email"
+                      Placeholder="@L["EmailPlaceholder"]"
+                      @bind-CurrentValue="formModel.Email" />
 
-    <NetliveTextArea Label="@L["TextLabel"]"
-                     Placeholder="@L["TextPlaceholder"]"
-                     @bind-CurrentValue="formModel.Text" />
+        <NetliveTextArea Label="@L["TextLabel"]"
+                         Placeholder="@L["TextPlaceholder"]"
+                         @bind-CurrentValue="formModel.Text" />
 
-    <NetliveCheckbox Label="@L["TermsLabel"]"
-                     @bind-CurrentValue="formModel.AgreeToTerms" />
+        <NetliveCheckbox Label="@L["TermsLabel"]"
+                         @bind-CurrentValue="formModel.AgreeToTerms" />
 
-    <NetliveSelect Label="@L["CountrySelectLabel"]"
-                   Items="@Countries"
-                   Placeholder="@L["CountrySelectPlaceholder"]"
-                   @bind-CurrentValue="formModel.CountryId" />   
+        <NetliveSelect Label="@L["CountrySelectLabel"]"
+                       Items="@Countries"
+                       Placeholder="@L["CountrySelectPlaceholder"]"
+                       @bind-CurrentValue="formModel.CountryId" />
 
-    <NetliveRadio Label="@L["CountryRadioLabel"]"
-                  Items="@Countries"
-                  Placeholder="@L["CountrySelectPlaceholder"]"
-                  @bind-CurrentValue="formModel.CountryRadioId" />
+        <NetliveRadio Label="@L["CountryRadioLabel"]"
+                      Name="radio-1"
+                      Items="@Countries"
+                      Placeholder="@L["CountrySelectPlaceholder"]"
+                      @bind-CurrentValue="formModel.CountryRadioId" />
 
-    <NetliveRadio Label="@L["CountryRadioLabel"]"
-                    Items="@Countries"
-                    Placeholder="@L["CountrySelectPlaceholder"]"
-                    @bind-CurrentValue="formModel.CountryRadioButtonId"
-                    Buttons="true" />
+        <NetliveRadio Label="@L["CountryRadioLabel"]"
+                      Name="radio-2"
+                      Items="@Countries"
+                      Placeholder="@L["CountrySelectPlaceholder"]"
+                      @bind-CurrentValue="formModel.CountryRadioButtonId"
+                      Buttons="true" />
 
-    <NetliveDate Label="@L["DateLabel"]"
-                 Placeholder="@L["DatePlaceholder"]"
-                 @bind-CurrentValue="formModel.Date" />
+        <NetliveDate Label="@L["DateLabel"]"
+                     Placeholder="@L["DatePlaceholder"]"
+                     @bind-CurrentValue="formModel.Date" />
 
-    <NetliveSwitch Label="@L["Switchlabel"]"
-                   Placeholder="@L["SwitchlabelPlaceholder"]"
-                   @bind-CurrentValue="formModel.SwitchState" />
+        <NetliveSwitch Label="@L["Switchlabel"]"
+                       Placeholder="@L["SwitchlabelPlaceholder"]"
+                       @bind-CurrentValue="formModel.SwitchState" />
 
+        <NetliveAutoComplete Label="@L["AutoCompleteLabel"]"
+                             Placeholder="@L["AutoCompletePlaceholder"]"
+                             Items="@Countries"
+                             @bind-CurrentValue="formModel.CountryAutoCompletedIds" />
 
+        <NetliveFile Label="@L["FileLabel"]"
+                     Placeholder="@L["FilePlaceholder"]"
+                     @bind-CurrentValue="formModel.File" />
 
-    <NetliveButton Color="NetliveColor.Primary"
-                   Clicked="@OnSaveClicked">
-        @L["SubmitButton"]
-    </NetliveButton>
+        <NetliveButton Color="NetliveColor.Primary"
+                       Clicked="@OnSaveClicked">
+            @L["SubmitButton"]
+        </NetliveButton>
 
     </CascadingValue>
 </Validations>
@@ -82,9 +91,12 @@
     <div>Email: @formModel.Email</div>
     <div>Text: @formModel.Text</div>
     <div>Country: @formModel.CountryId</div>
-    <div>Country: @formModel.CountryRadioId</div>
+    <div>Country Radio: @formModel.CountryRadioId</div>
+    <div>Country Radio Button: @formModel.CountryRadioButtonId</div>
     <div>Terms: @formModel.AgreeToTerms</div>
     <div>Date: @formModel.Date</div>
+    <div>NetliveAutoComplete: @string.Join(", ", formModel.CountryAutoCompletedIds)</div>
+    <div>File: @formModel.File</div>
 </NetliveParagraph>
 
 @code {
@@ -148,7 +160,12 @@
 
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Please select a country auto")]
-        public int[] CountryAutoCompletedIds { get; set; }
+        public List<int> CountryAutoCompletedIds { get; set; } = new();
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Full Name must be less than 50 characters.")]
+        public string File { get; set; } = "";
+
     }
 
     private List<Country> Countries = new List<Country>

@@ -3,7 +3,7 @@
 @using NetliveComponents.Models
 @using System.Linq.Expressions
 
-<Validation MessageLocalizer="@MessageLocalizer">
+<Validation MessageLocalizer="@MessageLocalizer" Validator="ValidationRule.IsFileSelected">
     <Field>
         @if (!string.IsNullOrEmpty(Label))
         {
@@ -12,9 +12,7 @@
         <FieldBody>
             <FileEdit Placeholder="@Placeholder"
                       Changed="@OnValueChanged">
-                <Feedback>
-                    <ValidationError />
-                </Feedback>
+               
             </FileEdit>
         </FieldBody>
     </Field>
